@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: docker.io/library/postgres:13-alpine
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+
+  web:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - TERMINFO=/etc/terminfo
+      - TERM=xterm-256color
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=password
+      - SELENIUM_HOST=chrome
+      - APP_HOST=web
+    ports:
+     - "3000:3000"
+    volumes:
+      - .:/app/albums:Z
+
+volumes:
+  dbdata:
