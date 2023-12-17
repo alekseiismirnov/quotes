@@ -19,14 +19,30 @@ RUN apk update && \
   git \
   tzdata \
   vips \
-  && rm -rf /var/cache/apk/* 
+  && rm -rf /var/cache/apk/*
 
 WORKDIR /app/quotes
 
-RUN gem install rails -v 7.0.3.1
+RUN ! [ -x /app/quotes/bin/rails ] && echo '***' \
+&& gem install rails -v 7.0.3.1 \
+&& echo '*** app does not exist yet' \
+&& echo '***' \
+&& rails new /app/quotes --api -d postgresql -T -s --skip-git \
+&& /app/quotes/bin/bundle add factory_bot_rails --group "development, test" --skip-install \
+&& /app/quotes/bin/bundle add faker --group "development, test" --skip-install \
+&& /app/quotes/bin/bundle add prettyprint --group "development, test" --skip-install \
+&& /app/quotes/bin/bundle add erb_lint --group "development" --skip-install \
+&& /app/quotes/bin/bundle add erb_formatter --group "development" --skip-install \
+&& /app/quotes/bin/bundle add rubocop --group "development" --skip-install \
+&& /app/quotes/bin/bundle add solargraph --group "development" --skip-install \
+&& /app/quotes/bin/bundle add database_cleaner-active_record --group "test" --skip-install \
+&& /app/quotes/bin/bundle install \
+&& /app/quotes/bin/rails db:prepare \
+&& /app/quotes/bin/bundle exec spring binstub rspec \
 
-ADD rails_project_setup.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/rails_project_setup.sh
-ENTRYPOINT ["/usr/local/bin/rails_project_setup.sh"]
+COPY run_rails.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/run_rails.sh
+ENTRYPOINT ["run_rails.sh"]
 
 EXPOSE 3000
+
