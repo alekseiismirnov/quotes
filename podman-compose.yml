@@ -17,9 +17,9 @@ services:
       - TERMINFO=/etc/terminfo
       - TERM=xterm-256color
       - PGHOST=db
+      - DATABASE_URL=postgresql://db
       - PGUSER=postgres
       - PGPASSWORD=password
-      - SELENIUM_HOST=chrome
       - APP_HOST=web
     ports:
      - "3000:3000"
