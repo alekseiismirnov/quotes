@@ -21,24 +21,27 @@ RUN apk update && \
   vips \
   && rm -rf /var/cache/apk/*
 
-WORKDIR /app/quotes
-
-RUN echo "*** Rails setup ***" \
-&& if [[ ! -x /app/quotes/bin/rails ]] ; then echo '***' \
-&& gem install rails -v 7.0.3.1 \
-&& rails new /app/quotes --api -d postgresql -T -s --skip-git \
-&& /app/quotes/bin/bundle add spring --group "development, test" --skip-install \
-&& /app/quotes/bin/bundle add factory_bot_rails --group "development, test" --skip-install \
-&& /app/quotes/bin/bundle add faker --group "development, test" --skip-install \
-&& /app/quotes/bin/bundle add rspec --group "development, test" --skip-install \
-&& /app/quotes/bin/bundle add prettyprint --group "development, test" --skip-install \
-&& /app/quotes/bin/bundle add rubocop --group "development" --skip-install \
-&& /app/quotes/bin/bundle add solargraph --group "development" --skip-install \
-&& /app/quotes/bin/bundle add database_cleaner-active_record --group "test" --skip-install \
-&& /app/quotes/bin/bundle install ; fi
+ARG USERNAME
+ARG GROUPNAME
+ARG USERID
+ARG GROUPID
 
 COPY run_rails.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/run_rails.sh 
+RUN chmod +x /usr/local/bin/run_rails.sh
+
+WORKDIR /app/quotes
+
+RUN echo '***' && \
+    addgroup -g $GROUPID $GROUPNAME && \
+    adduser -S -u $USERID -G $GROUPNAME  -h /home/$USERNAME -s /bin/sh $USERNAME && \
+    echo "$USERNAME     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    mkdir -p /home/$USERNAME && \
+    chown -R $USERNAME:$GROUPNAME /home/$USERNAME && \
+    chown -R $USERNAME:$GROUPNAME /app && \
+    chmod 700 /home/$USERNAME && \
+    echo 'export PATH=$PATH:/home/lesha/.local/share/gem/ruby/3.0.0/bin' >> /home/$USERNAME/.profile && \
+    echo 'gem: --user-install --env-shebang --no-rdoc --no-ri' >> /home/$USERNAME/.gemrc
+USER $USERNAME
 
 ENTRYPOINT ["run_rails.sh"]
 EXPOSE 3000

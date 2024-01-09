@@ -11,6 +11,12 @@ services:
 
   web:
     build: .
+    userns: keep-id
+    args:
+      USERNAME: ${USERNAME}
+      GROUPNAME: ${GROUPNAME}
+      USERID: ${USERID}
+      GROUPID: ${GROUPID}
     depends_on:
       - db
     environment:
@@ -24,7 +30,6 @@ services:
     ports:
      - "3000:3000"
     volumes:
-      - .:/app/albums:Z
-
+     - .:/app/albums:Z
 volumes:
   dbdata:
