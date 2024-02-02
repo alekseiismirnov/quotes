@@ -36,11 +36,13 @@ RUN echo '***' && \
     adduser -S -u $USERID -G $GROUPNAME  -h /home/$USERNAME -s /bin/sh $USERNAME && \
     echo "$USERNAME     ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
     mkdir -p /home/$USERNAME && \
-    chown -R $USERNAME:$GROUPNAME /home/$USERNAME && \
-    chown -R $USERNAME:$GROUPNAME /app && \
-    chmod 700 /home/$USERNAME && \
+    mkdir -p /app/quotes && \
+    touch /app/quotes/trash.me && \
     echo 'export PATH=$PATH:/home/lesha/.local/share/gem/ruby/3.0.0/bin' >> /home/$USERNAME/.profile && \
-    echo 'gem: --user-install --env-shebang --no-rdoc --no-ri' >> /home/$USERNAME/.gemrc
+    echo 'gem: --user-install --env-shebang --no-rdoc --no-ri' >> /home/$USERNAME/.gemrc && \
+    chmod 700 /home/$USERNAME && \
+    chown -R $USERNAME:$GROUPNAME /home/$USERNAME && \
+    chown -R $USERNAME:$GROUPNAME /app
 USER $USERNAME
 
 ENTRYPOINT ["run_rails.sh"]

@@ -1,18 +1,10 @@
 #!/bin/sh
 while ! pg_isready ; do sleep 10 ; echo " awating db" ; done 
 source ~/.profile
-
 echo "*** Rails setup ***" 
 
 if [ ! -x /app/quotes/bin/rails ] 
 then
-	echo "*****"
-	echo "I'am $(whoami)"
-	echo "PATH: $PATH"
-	echo "*****"
-	
-	touch me_gently
-
 	gem install --user-install rails -v 7.0.3.1
 	rails new . --api -d postgresql -T -s --skip-git 
 
@@ -30,6 +22,8 @@ then
 	/app/quotes/bin/rails db:prepare
 fi
 
+/app/quotes/bin/bundle install
+/app/quotes/bin/bundle exec spring binstub --all
+
 rm -fr /app/quotes/tmp/pids/server.pid
 /app/quotes/bin/rails s -b 0.0.0.0
-
