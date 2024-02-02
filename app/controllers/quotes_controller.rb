@@ -1,6 +1,6 @@
 class QuotesController < ApplicationController
   def index
-    @quotes = {quotation: 'The secret of getting ahead is getting started.'}
+    @quotes = Quote.all
     json_responce @quotes
   end
 
