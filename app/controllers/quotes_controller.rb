@@ -16,12 +16,16 @@ class QuotesController < ApplicationController
 
   def update
     @quote = Quote.find params[:id]
-    @quote.update quote_params
+    if @quote.update! quote_params
+      render json: {message: 'Quote updated successfuly'}, status: :ok
+    end
   end
 
   def destroy
     @quote = Quote.find params[:id]
-    @quote.destroy
+    if @quote.destroy
+      render json: {message: 'Quote deleted'}
+    end
   end
 
   private 
