@@ -220,6 +220,8 @@ GEM
     rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
     ruby-progressbar (1.13.0)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     solargraph (0.50.0)
       backport (~> 1.2)
       benchmark
@@ -266,6 +268,7 @@ DEPENDENCIES
   rspec (~> 3.12)
   rspec-rails (~> 6.1)
   rubocop (~> 1.60)
+  shoulda-matchers (~> 5)
   solargraph (~> 0.50.0)
   spring (~> 4.1)
   tzinfo-data

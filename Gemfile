@@ -64,3 +64,5 @@ gem "solargraph", "~> 0.50.0", :group => :development
 gem "database_cleaner-active_record", "~> 2.1", :group => :test
 
 gem "rspec-rails", "~> 6.1", :groups => [:development, :test]
+
+gem "shoulda-matchers", "~> 5", :group => :test
