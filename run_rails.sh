@@ -12,6 +12,7 @@ then
 	/app/quotes/bin/bundle add factory_bot_rails --group "development, test" --skip-install 
 	/app/quotes/bin/bundle add faker --group "development, test" --skip-install 
 	/app/quotes/bin/bundle add rspec --group "development, test" --skip-install
+	/app/quotes/bin/bundle add rspec-rails --group "development, test" --skip-install
 	/app/quotes/bin/bundle add prettyprint --group "development, test" --skip-install
 	/app/quotes/bin/bundle add rubocop --group "development" --skip-install
 	/app/quotes/bin/bundle add solargraph --group "development" --skip-install
