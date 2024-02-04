@@ -17,6 +17,7 @@ then
 	/app/quotes/bin/bundle add rubocop --group "development" --skip-install
 	/app/quotes/bin/bundle add solargraph --group "development" --skip-install
 	/app/quotes/bin/bundle add database_cleaner-active_record --group "test" --skip-install
+	/app/quotes/bin/bundle add shoulda-matchers --group "test" --skip-install --version "~> 5"
 	/app/quotes/bin/bundle install 
 	/app/quotes/bin/bundle exec spring binstub --all
 
