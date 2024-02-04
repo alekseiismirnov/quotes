@@ -21,6 +21,7 @@ then
 	/app/quotes/bin/bundle exec spring binstub --all
 
 	/app/quotes/bin/rails db:prepare
+	/app/quotes/bin/rails g rspec:install
 fi
 
 /app/quotes/bin/bundle install
