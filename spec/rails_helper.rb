@@ -69,3 +69,5 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+DatabaseCleaner.allow_remote_database_url = true
