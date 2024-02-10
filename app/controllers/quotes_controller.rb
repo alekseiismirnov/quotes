@@ -10,8 +10,9 @@ class QuotesController < ApplicationController
   end
 
   def create
-    @quote = Quote.create!(quote_params)
-    json_responce @quote
+    if @quote = Quote.create!(quote_params)
+      render json: @quote, status: :created
+    end
   end
 
   def update
