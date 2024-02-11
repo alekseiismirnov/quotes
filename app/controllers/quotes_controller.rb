@@ -1,6 +1,11 @@
 class QuotesController < ApplicationController
   def index
-    @quotes = Quote.all
+    if params[:name]
+      @quotes = Quote.where(author: params[:name])
+    else
+      @quotes = Quote.all
+    end
+
     json_responce @quotes
   end
 
@@ -17,7 +22,7 @@ class QuotesController < ApplicationController
 
   def update
     @quote = Quote.find params[:id]
-    if @quote.update! quote_params
+    if @quote.update! quote_params  # TODO why doesn't json_response work?
       render json: {message: 'Quote updated successfuly'}, status: :ok
     end
   end
