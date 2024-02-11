@@ -27,6 +27,7 @@ services:
       - PGUSER=postgres
       - PGPASSWORD=password
       - APP_HOST=web
+      - PAGER=nothing
     ports:
      - "3000:3000"
     volumes:
