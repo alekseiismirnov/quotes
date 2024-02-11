@@ -66,3 +66,5 @@ gem "database_cleaner-active_record", "~> 2.1", :group => :test
 gem "rspec-rails", "~> 6.1", :groups => [:development, :test]
 
 gem "shoulda-matchers", "~> 5", :group => :test
+
+gem "pry", "~> 0.14.2", :groups => [:development, :test]
