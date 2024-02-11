@@ -9,6 +9,7 @@ then
 	rails new . --api -d postgresql -T -s --skip-git 
 
 	/app/quotes/bin/bundle add spring --group "development, test" --skip-install 
+	/app/quotes/bin/bundle add pry --group "development, test" --skip-install 
 	/app/quotes/bin/bundle add factory_bot_rails --group "development, test" --skip-install 
 	/app/quotes/bin/bundle add faker --group "development, test" --skip-install 
 	/app/quotes/bin/bundle add rspec --group "development, test" --skip-install
