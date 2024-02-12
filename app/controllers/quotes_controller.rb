@@ -6,39 +6,35 @@ class QuotesController < ApplicationController
       @quotes = Quote.all
     end
 
-    json_responce @quotes
+    json_response @quotes
   end
 
   def show
     @quote = Quote.find params[:id]
-    json_responce @quote
+    json_response @quote
   end
 
   def create
     if @quote = Quote.create!(quote_params)
-      render json: @quote, status: :created
+      json_response( @quote, :created )
     end
   end
 
   def update
     @quote = Quote.find params[:id]
-    if @quote.update! quote_params  # TODO why doesn't json_response work?
-      render json: {message: 'Quote updated successfuly'}, status: :ok
+    if @quote.update! quote_params
+      json_response( {message: 'Quote updated successfuly'} )
     end
   end
 
   def destroy
     @quote = Quote.find params[:id]
     if @quote.destroy
-      render json: {message: 'Quote deleted'}
+      json_response( {message: 'Quote deleted'} )
     end
   end
 
   private 
-  def json_responce(object, status = :ok)
-    render json: object, status: status
-  end
-
   def quote_params
     params.require(:quote).permit(:author, :content)
   end
