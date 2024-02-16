@@ -70,3 +70,17 @@ gem "shoulda-matchers", "~> 5", :group => :test
 gem "pry", "~> 0.14.2", :groups => [:development, :test]
 
 gem "simplecov", "~> 0.22.0", :group => :test
+
+gem "jwt", "~> 2.7"
+
+gem "bcrypt", "~> 3.1"
+
+gem "rack-cors", "~> 2.0"
+
+gem "active_model_serializers", "~> 0.10.14"
+
+gem "rubocop-factory_bot", "~> 2.25", :group => :development
+
+gem "rubocop-rails", "~> 2.23", :group => :development
+
+gem "rubocop-rspec", "~> 2.26", :group => :development
