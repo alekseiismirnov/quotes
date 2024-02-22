@@ -1,3 +1,5 @@
+AllCops:
+  EnabledByDefault: true
 require:
  - rubocop-rails
  - rubocop-rspec
