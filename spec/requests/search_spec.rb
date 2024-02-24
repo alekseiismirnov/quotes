@@ -9,7 +9,8 @@ describe 'Search by the author' do
   end
 
   it 'returns all authors quotes' do
-    get "/quotes?name=#{@author_name}"
+    #get "/quotes?name=#{@author_name}"
+    get api_v1_quotes_path({name: @author_name})
 
     expect(response).to have_http_status :ok
     expect(JSON.parse(response.body).length).to eq @quotes_number

@@ -1,4 +1,4 @@
-class QuotesController < ApplicationController
+class Api::V1::QuotesController < ApplicationController
   def index
     if params[:name]
       @quotes = Quote.where(author: params[:name])
@@ -35,6 +35,7 @@ class QuotesController < ApplicationController
   end
 
   private 
+
   def quote_params
     params.require(:quote).permit(:author, :content)
   end

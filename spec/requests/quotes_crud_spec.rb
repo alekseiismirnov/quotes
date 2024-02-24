@@ -8,13 +8,13 @@ describe 'Basic CRUD functionality' do
   end
 
   it 'retrive all quotes' do
-    get quotes_path
+    get api_v1_quotes_path
     expect(JSON.parse(response.body).size).to eq @quotes.size
   end
 
   it 'allow to retrive a quote' do
     quote = @quotes[5]
-    get quote_path(quote)
+    get api_v1_quote_path(quote)
 
     expect(response).to have_http_status :ok
     expect(JSON.parse(response.body)['author']).to eq quote[:author]
@@ -23,7 +23,7 @@ describe 'Basic CRUD functionality' do
  
   it 'allow to add new quote' do
     post(
-      quotes_path,
+      api_v1_quotes_path,
       params:
         { quote:
           { author: 'Who',
@@ -33,10 +33,10 @@ describe 'Basic CRUD functionality' do
   end
 
   it 'allows to delete existing quote' do
-    delete quote_path(@quote_delete)
+    delete api_v1_quote_path(@quote_delete)
 
     expect(response).to have_http_status :ok       
-    get quote_path(@quote_delete)
+    get api_v1_quote_path(@quote_delete)
     expect(response).to have_http_status :not_found
   end
 
@@ -45,7 +45,7 @@ describe 'Basic CRUD functionality' do
     new_author = "$6$fw P. yHMirAfyjWKzG$R"
     new_content = "$6$huhlOfTBNjOnibgK$qhKDtpOJbrqFl12fFM4HDK58ZxVWQmdluIYDHYM9sbaL7EP11h6.ihtzrUIkY8cx513Eh9hDBFwSXPT5YC9WY1"
 
-    patch(quote_path(@quote_update),
+    patch(api_v1_quote_path(@quote_update),
       params: 
       { quote:
           { author: new_author,
@@ -55,7 +55,7 @@ describe 'Basic CRUD functionality' do
     
     expect(response).to have_http_status :ok
 
-    get quote_path(@quote_update)
+    get api_v1_quote_path(@quote_update)
 
     expect(response).to have_http_status :ok
     expect(JSON.parse(response.body)['author']).to eq new_author
