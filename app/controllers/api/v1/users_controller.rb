@@ -3,14 +3,14 @@ class Api::V1::UsersController < ApplicationController
   before_action :check_owner
   
   def show
-    render json: @user
+    json_response( @user )
   end
 
   def update
     if @user.update(user_params)
-      render json: @user, status: :ok
+      json_response( @user )
     else
-      render json: @user.errors, status: :unprocessable_entry
+      render json_response( @user.errors, status: :unprocessable_entry )
     end
   end
 
